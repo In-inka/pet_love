@@ -1,5 +1,5 @@
 'use client';
-import AddTodoForm from '@/components/Form/AddTodoForm';
+import AddTodoForm from '@/components/AddTodoForm/AddTodoForm';
 import TodoList from '@/components/TodoList/TodoList';
 import { useEffect, useState } from 'react';
 
