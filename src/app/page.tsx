@@ -15,10 +15,12 @@ const Home: React.FC = () => {
   const dispatch = useDispatch();
 
   return (
-    <main className="flex min-h-[100vh] w-full flex-col items-center justify-center gap-2 bg-graphite">
-      <h1>Todo List</h1>
-      <AddTodoForm onAdd={text => dispatch(addTodo(text))} />
-      <TodoList todo={todos} OnDelete={id => dispatch(deleteTodo(id))} />
+    <main className="bg-gray-900 min-h-screen flex flex-col items-center justify-center text-white">
+      <div className="container mx-auto">
+        <h1 className="text-4xl font-bold mb-4 ">Todo List</h1>
+        <AddTodoForm onAdd={text => dispatch(addTodo(text))} />
+        <TodoList todo={todos} OnDelete={id => dispatch(deleteTodo(id))} />
+      </div>
     </main>
   );
 };
