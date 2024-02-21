@@ -1,11 +1,12 @@
 'use client';
-import React, { FC, useState } from 'react';
+import React, { FC, FormEvent, useState } from 'react';
 interface AddTodoFormProps {
   onAdd: (text: string) => void;
 }
 const AddTodoForm: React.FC<AddTodoFormProps> = ({ onAdd }) => {
   const [newTodo, setNewTodo] = useState<string>('');
-  const handleAddClick = () => {
+  const handleAddClick = (e: FormEvent) => {
+    e.preventDefault();
     onAdd(newTodo);
     setNewTodo('');
   };

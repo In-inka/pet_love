@@ -1,4 +1,4 @@
-import { Todo } from '@/app/page';
+import { Todo } from '@/todoSlice';
 import React from 'react';
 interface TodoListProps {
   todo: Todo[];
