@@ -1,4 +1,3 @@
-TodoList App
 This is a simple TodoList application built with React and Redux.
 
 
