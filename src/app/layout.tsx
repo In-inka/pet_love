@@ -1,21 +1,20 @@
 import './globals.css';
+import Header from '@/components/main/header/Header';
 
-import { Providers } from '../providers';
-
-export default function RootLayout({
+export default async function RootLayout({
   children,
+  params: { locale },
 }: {
   children: React.ReactNode;
+  params: { locale: string };
 }) {
   return (
-    <html lang="en">
-      {/*
-        <head /> will contain the components returned by the nearest parent
-        head.tsx. Find out more at https://beta.nextjs.org/docs/api-reference/file-conventions/head
-      */}
-      <head />
+    <html lang={locale}>
       <body>
-        <Providers>{children}</Providers>
+        <header className="bg-graphite py-[16px]">
+          <Header />
+        </header>
+        <main>{children}</main>
       </body>
     </html>
   );
