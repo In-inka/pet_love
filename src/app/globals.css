@@ -29,7 +29,7 @@ html {
 
 @layer components {
   .container {
-    @apply mx-auto w-full max-w-[1280px] px-[36px];
+    @apply mx-auto w-full max-w-[1280px] px-[64px];
   }
 }
 

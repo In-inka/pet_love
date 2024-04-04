@@ -1,5 +1,6 @@
 import './globals.css';
 import Header from '@/components/main/header/Header';
+import { Providers } from './providers';
 
 export default async function RootLayout({
   children,
@@ -11,10 +12,12 @@ export default async function RootLayout({
   return (
     <html lang={locale}>
       <body>
-        <header className="bg-graphite py-[16px]">
-          <Header />
-        </header>
-        <main>{children}</main>
+        <Providers locale={locale}>
+          <header className="bg-graphite pt-[16px]">
+            <Header />
+          </header>
+          <main>{children}</main>
+        </Providers>
       </body>
     </html>
   );
