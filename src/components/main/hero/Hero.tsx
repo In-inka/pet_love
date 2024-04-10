@@ -1,7 +1,4 @@
 'use client';
-import { getNews } from '@/api/news';
-import { constants } from '@/constants';
-import { useQuery } from '@tanstack/react-query';
 
 const Hero = () => {
   /*   const { data, isFetching } = useQuery({

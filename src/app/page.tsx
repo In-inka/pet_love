@@ -1,5 +1,5 @@
 import PictureHero from '@/components/main/pictureHero/PictureHero';
-import Hero from '../components/main/hero/Hero';
+
 import {
   HydrationBoundary,
   QueryClient,
@@ -8,6 +8,8 @@ import {
 } from '@tanstack/react-query';
 import { constants } from '@/constants';
 import { getNews } from '@/api/news';
+import Hero from '@/components/main/hero/Hero';
+import Header from '@/components/main/header/Header';
 
 const Home = async () => {
   const queryClient = new QueryClient();
@@ -17,14 +19,20 @@ const Home = async () => {
     queryFn: getNews,
   });
 
-
   return (
-    <div className="flex min-h-[100vh] w-full flex-col items-center bg-graphite">
-      <HydrationBoundary state={dehydrate(queryClient)}>
-        <Hero />
-      </HydrationBoundary>
-      <PictureHero />
-    </div>
+    <>
+      <header className="bg-graphite pt-[16px]">
+        <Header />
+      </header>
+      <main>
+        <div className="flex min-h-[100vh] w-full flex-col items-center bg-graphite">
+          <HydrationBoundary state={dehydrate(queryClient)}>
+            <Hero />
+          </HydrationBoundary>
+          <PictureHero />
+        </div>
+      </main>
+    </>
   );
 };
 

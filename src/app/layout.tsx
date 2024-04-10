@@ -1,23 +1,29 @@
 import './globals.css';
 import Header from '@/components/main/header/Header';
-import { Providers } from './providers';
+import { Providers } from './provider';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Petlove',
+  description: 'Petlove official page',
+  icons: {
+    icon: ['/favicon.ico?v=1'],
+    apple: ['/favicon.png?v=4'],
+    shortcut: ['/favicon.png'],
+  },
+  manifest: '/site.webmanifest',
+};
 
 export default async function RootLayout({
   children,
-  params: { locale },
 }: {
   children: React.ReactNode;
-  params: { locale: string };
+  pageTitle: string;
 }) {
   return (
-    <html lang={locale}>
+    <html lang={'en'}>
       <body>
-        <Providers locale={locale}>
-          <header className="bg-graphite pt-[16px]">
-            <Header />
-          </header>
-          <main>{children}</main>
-        </Providers>
+        <Providers>{children}</Providers>
       </body>
     </html>
   );
