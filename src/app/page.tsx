@@ -1,10 +1,8 @@
 import PictureHero from '@/components/main/pictureHero/PictureHero';
-
 import {
   HydrationBoundary,
   QueryClient,
   dehydrate,
-  useQuery,
 } from '@tanstack/react-query';
 import { constants } from '@/constants';
 import { getNews } from '@/api/news';
