@@ -7,7 +7,7 @@ import Link from 'next/link';
 const formatDate = (inputDate: string) => {
   const date = new Date(inputDate);
   const day = date.getDate().toString().padStart(2, '0');
-  const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Місяць починається з нуля, тому додаємо 1
+  const month = (date.getMonth() + 1).toString().padStart(2, '0'); 
   const year = date.getFullYear();
 
   return `${day}/${month}/${year}`;
@@ -16,7 +16,7 @@ const formatDate = (inputDate: string) => {
 const NewsItem = ({ item }: { item: INews }) => {
   const inputDate = '2023-04-11T09:00:18+0000';
   const formattedDate = formatDate(inputDate);
-  console.log(formattedDate); // Виведе: 11/04/2023
+  console.log(formattedDate);
 
   return (
     <>
