@@ -5,7 +5,7 @@ import SearchField from '../ui/SearchField';
 
 const News = () => {
   return (
-    <div className="flex min-h-[100vh] w-full flex-col text-black pt-[96px] container">
+    <div className="flex min-h-[100vh] w-full flex-col text-black pt-[96px] container pb-10">
       <section>
         <div className="flex justify-between items-center mb-[60px]">
           <Title title="News" />
