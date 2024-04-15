@@ -1,12 +1,6 @@
 'use client';
 
 const Hero = () => {
-  /*   const { data, isFetching } = useQuery({
-    queryKey: [constants.news.FETCH_NEWS],
-    queryFn: getNews,
-  });
-
-  console.log(data); */
 
   return (
     <section className="bg-[#F6B83D] rounded-bl-[60px] rounded-br-[60px] w-full ">

@@ -18,7 +18,6 @@ const NewsItem = ({ item }: { item: INews }) => {
   const inputDate = '2023-04-11T09:00:18+0000';
   const formattedDate = formatDate(inputDate);
 
-  const [isExpanded, setIsExpanded] = useState(false);
   const [isTextOverflowing, setIsTextOverflowing] = useState(false);
 
   useEffect(() => {
