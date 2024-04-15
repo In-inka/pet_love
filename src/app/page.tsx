@@ -12,10 +12,6 @@ import Header from '@/components/main/header/Header';
 const Home = async () => {
   const queryClient = new QueryClient();
 
-await queryClient.prefetchQuery({
-  queryKey: [constants.news.FETCH_NEWS],
-  queryFn: () => getNews({ currentPage: 1, perPage: 10 }),
-});
 
   return (
     <>
@@ -24,9 +20,7 @@ await queryClient.prefetchQuery({
       </header>
       <main>
         <div className="flex min-h-[100vh] w-full flex-col items-center bg-graphite">
-          <HydrationBoundary state={dehydrate(queryClient)}>
             <Hero />
-          </HydrationBoundary>
           <PictureHero />
         </div>
       </main>

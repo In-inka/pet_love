@@ -12,10 +12,12 @@ import React from 'react';
 const NewsPage: React.FC = async () => {
   const queryClient = new QueryClient();
 
-  await queryClient.prefetchQuery({
-    queryKey: [constants.news.FETCH_NEWS],
-    queryFn: getNews,
-  });
+ await queryClient.prefetchQuery({
+  queryKey: [constants.news.FETCH_NEWS],
+  queryFn: () => getNews({ currentPage: 1, perPage: 10 }),
+ });
+  
+  
   return (
     <>
       <header>
