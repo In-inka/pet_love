@@ -1,5 +1,5 @@
-import { getNews } from '@/api/news';
-import News from '@/components/news/News';
+import { getNotices } from '@/api/notices';
+import Notices from '@/components/Notices/Notices';
 import Header from '@/components/news/header/Header';
 import { constants } from '@/constants';
 import {
@@ -9,12 +9,12 @@ import {
 } from '@tanstack/react-query';
 import React from 'react';
 
-const NewsPage: React.FC = async () => {
+const FindPetsPage: React.FC = async () => {
   const queryClient = new QueryClient();
 
- await queryClient.prefetchQuery({
-  queryKey: [constants.news.FETCH_NEWS],
-  queryFn: () => getNews({ currentPage: 1, perPage: 6 }),
+await queryClient.prefetchQuery({
+  queryKey: [constants.notices.FETCH_NEWS],
+  queryFn: () => getNotices({ currentPage: 1, perPage: 6 }),
  });
   
   
@@ -25,11 +25,11 @@ const NewsPage: React.FC = async () => {
       </header>
       <main>
         <HydrationBoundary state={dehydrate(queryClient)}>
-          <News />
+          <Notices />
         </HydrationBoundary>
       </main>
     </>
   );
 };
 
-export default NewsPage;
+export default FindPetsPage;

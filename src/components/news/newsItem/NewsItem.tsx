@@ -37,7 +37,7 @@ const NewsItem = ({ item }: { item: INews }) => {
             alt={item.title}
             width={358}
             height={226}
-            className="h-[226px] w-[361px] rounded-[15px] mb-7"
+            className="object-cover h-[226px] w-[361px] rounded-[15px] mb-7"
           />
           <div className="mb-[28px] ">
             <h2  className={`h-[52px] text-[20px] font-bold mb-[14px] overflow-hidden  `}>

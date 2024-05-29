@@ -21,7 +21,7 @@ const Header = () => {
             News
           </Link>
           <Link
-            href={''}
+            href={'notices'}
             className=" h-[50px] border border-solid border-[rgba(38, 38, 38, 0.15)] rounded-[30px] flex items-center px-[20px] py-[15px] justify-center overflow-hidden"
           >
             Find pet

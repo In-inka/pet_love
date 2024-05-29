@@ -1,28 +1,36 @@
 import React, {
   forwardRef,
   ForwardedRef,
-  InputHTMLAttributes,
   useState,
 } from 'react';
 import Search from '../main/icons/Search';
+import Clear from '../main/icons/Clear';
 
-interface SearchFieldProps extends InputHTMLAttributes<HTMLInputElement> {
+interface SearchFieldProps {
   errorText?: string;
+  onChange: (data:string) => void;
 }
 
 const SearchField = forwardRef(function SearchField(
-  { errorText, ...rest }: SearchFieldProps,
+  { errorText, onChange, ...rest }: SearchFieldProps,
   ref: ForwardedRef<HTMLInputElement>
 ) {
-  // Стан для зберігання значення вводу
   const [inputValue, setInputValue] = useState('');
+  const [isChange, setIsChange] = useState(false);
 
-  // Обробник зміни значення вводу
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newValue = e.target.value;
     setInputValue(newValue);
-    console.log(newValue); // Виводимо нове значення в консоль
+    setIsChange(true)
   };
+
+  const handleSubmit = () => {
+    onChange(inputValue);
+  }
+  const handleClear = () => {
+    setInputValue('');
+     setIsChange(false)
+  }
 
   return (
     <div>
@@ -35,9 +43,14 @@ const SearchField = forwardRef(function SearchField(
           onChange={handleChange}
           className="block w-[230px] h-[48px] border border-solid border-[rgba(38, 38, 38, 0.15)] rounded-[30px] p-[14px] pr-[38px] outline-none"
         />
-        <div className="absolute  right-[14px] top-[14px] ">
+       <div className='flex gap-[4px] absolute  right-[14px] top-[14px] '>
+            {isChange &&  <button type='button' onClick={handleClear} >
+          <Clear className='stroke-black fill-none w-[18px] h-[18px]'/>
+        </button>}
+        <button type='button' onClick={handleSubmit} >
           <Search className="stroke-black fill-none w-[18px] h-[18px]" />
-        </div>
+        </button>
+      </div>
       </div>
     </div>
   );
