@@ -9,11 +9,14 @@ import TextInput from '@/components/ui/TextInput';
 import { UseQueryResult, useQuery } from '@tanstack/react-query';
 import { constants } from '@/constants';
 import { getCategory } from '@/api/notices';
-import Select from 'react-select';
+import Select, { ActionMeta } from 'react-select';
 import { useEffect } from 'react';
 import { selectStyles } from './selectStyles';
 
-
+export type Option = {
+  value: string;
+  label: string;
+};
 
 const Filters = () => {
   const category: UseQueryResult<[], Error> = useQuery({
@@ -35,12 +38,11 @@ const Filters = () => {
 
   const {
     control,
-    handleSubmit,
-      setValue,
     watch,
     formState: { errors },
   } = useForm<FieldValues>({
     resolver: zodResolver(schema),
+    mode: 'onChange',
     defaultValues: { ...defaultValues },
   });
 
@@ -70,15 +72,26 @@ const Filters = () => {
           name="category"
           control={control}
           render={({ field }) => (
-              <Select
-             placeholder={'Category'}
+            <Select
+              styles={selectStyles}
+              placeholder={'Category'}
               {...field}
-                  options={optionCategory}
-                   value={optionCategory.find(option => option.value === field.value)}
-              onChange={(newValue) => {
-                field.onChange(newValue?.value);
-                setValue('category', newValue?.value); 
-                  }}
+              options={optionCategory}
+              value={optionCategory.find(option => option.value === field.value)}
+              onChange={(newValue: unknown,
+                _actionMeta: ActionMeta<unknown>) => {
+                if (
+                  typeof newValue === 'object' &&
+                  newValue !== null &&
+                  'value' in newValue
+                ) {
+                  field.onChange((newValue  as Option).value);
+                 
+     
+                } else {
+                  field.onChange('');
+                }
+              }}
                  
             />
           )}

@@ -3,39 +3,40 @@ import { StylesConfig } from 'react-select';
 export const selectStyles: StylesConfig = {
   control: (provided) => ({
     ...provided,
-    backgroundColor: '#F5F5F5',
-    margin: '10px 0 0 0',
+     paddingLeft: '10px',
+    width: '200px',
+    height: '48px',
+    backgroundColor: '#FFFFFF',
     color: 'black',
     fontSize: '16px',
     fontFamily: 'Open Sans, sans-serif',
     lineHeight: '1.6',
     boxShadow: 'initial',
     borderColor: 'transparent',
+    borderRadius: '30px',
     ':hover': {
-      cursor: 'pointer',
-      border: '1px solid #35DB4F',
+      border: '1px solid #F6B83D',
       outline: 'none',
       boxShadow: 'initial',
     },
-    ':focus': {
-      border: '1px solid #35DB4F',
+     ':focus': {
+      border: '1px solid #F6B83D',
       outline: 'none',
       boxShadow: 'initial',
     },
     '::placeholder': {
-      color: '#787878',
+      color: 'black',
     },
   }),
   option: (provided, state) => ({
     ...provided,
-    backgroundColor: state.isFocused ? '#e3e3e3' : 'white',
     rounded: 'md',
     cursor: 'pointer',
-    borderBottom: '1px solid #787878',
-    color: state.isFocused ? 'black' : 'inherit',
+     backgroundColor: '#FFFFFF',
+    color: state.isFocused ? '#F6B83D' : 'inherit',
     ':hover': {
-      backgroundColor: '#e3e3e3',
-      color: 'black',
+      backgroundColor: '#FFFFFF',
+      color: '#F6B83D',
     },
   }),
   indicatorSeparator: (provided) => ({
@@ -52,7 +53,7 @@ export const selectStyles: StylesConfig = {
   menuList: (provided) => ({
     ...provided,
     padding: '0px',
-    maxHeight: '120px',
+    maxHeight: '160px',
     zIndex: 9999,
     overflowY: 'scroll', // Устанавливаем значение overflowY в 'scroll'
     '&::-webkit-scrollbar': {
@@ -60,11 +61,11 @@ export const selectStyles: StylesConfig = {
       height: '25px',
     },
     '&::-webkit-scrollbar-track': {
-      background: '#FAFAFA',
+      background: 'white',
       borderRadius: '2px',
     },
     '&::-webkit-scrollbar-thumb': {
-      background: '#787878',
+      background: 'rgba(38, 38, 38, 0.08)',
       border: '4px solid #FAFAFA',
       borderRadius: '8px',
     },
@@ -81,17 +82,17 @@ export const selectStyles: StylesConfig = {
       width: '16px',
     },
     '& scrollbar-track': {
-      background: '#FAFAFA',
+      background: 'rgba(38, 38, 38, 0.08)',
       borderRadius: '2px',
     },
     '& scrollbar-thumb': {
-      background: '#787878',
-      border: '4px solid #FAFAFA',
+      background: 'rgba(38, 38, 38, 0.08)',
+      border: '4px solid rgba(38, 38, 38, 0.08)',
       borderRadius: '8px',
       height: '25px',
     },
     '& scrollbar-thumb:hover': {
-      background: '#555',
+      background: 'rgba(38, 38, 38, 0.08)',
     },
     '& scrollbar-thumb:horizontal': {
       maxWidth: '8px',
@@ -103,11 +104,11 @@ export const selectStyles: StylesConfig = {
       width: '16px',
     },
     '&::-ms-scrollbar-track': {
-      background: '#FAFAFA',
+      background: 'rgba(38, 38, 38, 0.08)',
       borderRadius: '2px',
     },
     '&::-ms-scrollbar-thumb': {
-      background: '#787878',
+      background: 'rgba(38, 38, 38, 0.08)',
       border: '4px solid #FAFAFA',
       borderRadius: '8px',
       height: '25px',
