@@ -7,12 +7,12 @@ const Notices = () => {
 
 
   return (
-    <div className="flex min-h-[100vh] w-full flex-col text-black pt-[96px] container pb-10">
+    <div className="flex min-h-[100vh] w-full flex-col text-black pt-[96px] pb-10">
       <section>
-         <div className="flex justify-between items-center mb-[60px]">
+         <div className="flex justify-between items-center mb-[40px] container">
           <Title title="Find your favorite pet" />
         </div>
-        <NoticesList/>
+        <NoticesList />
       </section>
     </div>
   );

@@ -3,13 +3,14 @@ import { StylesConfig } from 'react-select';
 export const selectStyles: StylesConfig = {
   control: (provided) => ({
     ...provided,
-     paddingLeft: '10px',
-    width: '200px',
+    paddingLeft: '10px',
+    paddingRight: '10px',
+    width: '190px',
     height: '48px',
     backgroundColor: '#FFFFFF',
     color: 'black',
     fontSize: '16px',
-    fontFamily: 'Open Sans, sans-serif',
+    fontFamily: 'Manrope, sans-serif',
     lineHeight: '1.6',
     boxShadow: 'initial',
     borderColor: 'transparent',
@@ -17,7 +18,7 @@ export const selectStyles: StylesConfig = {
     ':hover': {
       border: '1px solid #F6B83D',
       outline: 'none',
-      boxShadow: 'initial',
+
     },
      ':focus': {
       border: '1px solid #F6B83D',
@@ -33,8 +34,13 @@ export const selectStyles: StylesConfig = {
     rounded: 'md',
     cursor: 'pointer',
      backgroundColor: '#FFFFFF',
-    color: state.isFocused ? '#F6B83D' : 'inherit',
+    borderColor: 'transparent',
+    fontWeight:'bold',
+      outline: 'none',
+    color: state.isFocused ? '#F6B83D' : 'rgba(38, 38, 38, 0.6)',
     ':hover': {
+       outline: 'none',
+      borderColor: 'transparent',
       backgroundColor: '#FFFFFF',
       color: '#F6B83D',
     },
@@ -45,28 +51,31 @@ export const selectStyles: StylesConfig = {
   }),
   menu: (provided) => ({
     ...provided,
-
+    width: '200px',
     marginTop: '0px',
-    backgroundColor: '#F5F5F5',
+    backgroundColor: '#FFFFFF',
+     borderRadius:'15px',
     zIndex: 9999,
+     overflow: 'hidden',
   }),
   menuList: (provided) => ({
     ...provided,
+    borderRadius: '15px',
     padding: '0px',
     maxHeight: '160px',
     zIndex: 9999,
-    overflowY: 'scroll', // Устанавливаем значение overflowY в 'scroll'
+    overflowY: 'scroll', 
     '&::-webkit-scrollbar': {
       width: '16px',
       height: '25px',
     },
     '&::-webkit-scrollbar-track': {
-      background: 'white',
-      borderRadius: '2px',
+     backgroundColor: '#FFFFFF',
+      borderRadius:'15px',
     },
     '&::-webkit-scrollbar-thumb': {
       background: 'rgba(38, 38, 38, 0.08)',
-      border: '4px solid #FAFAFA',
+      border: '4px solid #FFFFFF',
       borderRadius: '8px',
     },
     '&::-webkit-scrollbar-thumb:hover': {
@@ -83,7 +92,7 @@ export const selectStyles: StylesConfig = {
     },
     '& scrollbar-track': {
       background: 'rgba(38, 38, 38, 0.08)',
-      borderRadius: '2px',
+       borderRadius:'15px',
     },
     '& scrollbar-thumb': {
       background: 'rgba(38, 38, 38, 0.08)',
@@ -105,7 +114,7 @@ export const selectStyles: StylesConfig = {
     },
     '&::-ms-scrollbar-track': {
       background: 'rgba(38, 38, 38, 0.08)',
-      borderRadius: '2px',
+      borderRadius:'15px',
     },
     '&::-ms-scrollbar-thumb': {
       background: 'rgba(38, 38, 38, 0.08)',
@@ -122,13 +131,5 @@ export const selectStyles: StylesConfig = {
     '&::-ms-scrollbar-thumb:vertical': {
       height: '25px',
     },
-  }),
-  clearIndicator: (provided) => ({
-    ...provided,
-    color: '#000000',
-    fontSize: '18px',
-    ':hover': {
-      color: '#000000',
-    },
-  }),
+  })
 };

@@ -8,15 +8,22 @@ import React, {
 } from 'react';
 
 import Select, { ActionMeta } from 'react-select';
+import { selectStyles } from './selectStyles';
+import { Option } from '../Notices/Filter/Filter';
+import DropdownIndicator from '../main/icons/DropdownIndicator';
 
 
 interface SelectInputProps {
-  options: [];
+   value: string;
+  options: Option[];
   placeholder: string;
+  onChange: (value: string) => void;
 }
 const SelectInput = forwardRef(function SelectInput(
   {
     options,
+    onChange,
+    value,
     placeholder,
   }: SelectInputProps,
   _ref: ForwardedRef<HTMLInputElement>
@@ -31,18 +38,44 @@ const SelectInput = forwardRef(function SelectInput(
     setIsOpen(false);
   };
 
+   const handleChange = (
+    newValue: unknown,
+    _actionMeta: ActionMeta<unknown>
+  ) => {
+    if (
+      typeof newValue === 'object' &&
+      newValue !== null &&
+      'value' in newValue
+    ) {
+      onChange((newValue as Option).value);
+    } else {
+      onChange('');
+    }
+   };
+  
+
 
 
   return (
-    <div className="relative m-2 w-[240px] sm:w-[340px] md:w-[264px] xl:w-[358px]">
+    <div className="relative m-2 w-[190px]">
       <Select
-        isClearable
         id={placeholder}
-        options={options}
-        placeholder={placeholder}
+              styles={selectStyles}
+              placeholder={placeholder}
+              options={options}
+             value={options.find((c) => c.value === value)}
+        onChange={handleChange}
         onMenuOpen={handleMenuOpen}
         onMenuClose={handleMenuClose}
-      />
+          components={{
+          DropdownIndicator:  (props) => (
+                <DropdownIndicator
+                  isOpen={isOpen}
+                  {...props}
+                />
+              ),
+        }}
+            />
     </div>
   );
 });

@@ -56,7 +56,7 @@ const NoticesList = () => {
   return (
     <div>
       <Filters/>
-     <ul className="flex gap-[30px] flex-wrap pb-[60px]">
+     <ul className="flex gap-[30px] flex-wrap pb-[60px] container">
         { dataNotices?.map((item: INotices) => (
           <li key={item._id}>
             <NoticesItem item={item} />

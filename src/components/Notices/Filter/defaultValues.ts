@@ -1,8 +1,8 @@
 const defaultValues = {
   keyword:'',
   category: '',
-  sex: [],
-  species: [],
+  sex: '',
+  species: '',
   locationId: '',
 };
 

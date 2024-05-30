@@ -8,10 +8,13 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import TextInput from '@/components/ui/TextInput';
 import { UseQueryResult, useQuery } from '@tanstack/react-query';
 import { constants } from '@/constants';
-import { getCategory } from '@/api/notices';
+import { getCategory, getSex, getSpecies } from '@/api/notices';
 import Select, { ActionMeta } from 'react-select';
 import { useEffect } from 'react';
-import { selectStyles } from './selectStyles';
+import { selectStyles } from '../../ui/selectStyles';
+import SelectInput from '@/components/ui/SelectInput';
+import SearchField from '@/components/ui/SearchField';
+import SearchInput from '@/components/ui/SearchInput';
 
 export type Option = {
   value: string;
@@ -24,20 +27,44 @@ const Filters = () => {
     queryFn: getCategory,
   });
 
+  const gender: UseQueryResult<[], Error> = useQuery({
+    queryKey: [constants.sex.FETCH_SEX],
+    queryFn: getSex,
+  });
+
+    const type: UseQueryResult<[], Error> = useQuery({
+    queryKey: [constants.species.FETCH_SPECIES],
+    queryFn: getSpecies,
+  });
+
   const capitalizeWords = (str: string) => {
     return str.replace(/\b\w/g, char => char.toUpperCase());
   };
 
   const categories = category?.data || [];
+  const genders = gender?.data || [];
+  const types = type?.data || [];
   const capitalizedCategories = categories.map(category => capitalizeWords(category));
+  const capitalizedGenders = genders.map(item => capitalizeWords(item));
+  const capitalizedTypes = types.map(item => capitalizeWords(item));
 
   const optionCategory = [
     { label: 'Show All', value: 'show all' },
     ...capitalizedCategories.map(category => ({ label: category, value: category.toLowerCase() }))
+  ]; 
+  
+  const optionGenders = [
+    { label: 'Show All', value: 'show all' },
+    ...capitalizedGenders.map(item => ({ label: item, value: item.toLowerCase() }))
+  ]; 
+   const optionTypes = [
+    { label: 'Show All', value: 'show all' },
+    ...capitalizedTypes.map(item => ({ label: item, value: item.toLowerCase() }))
     ]; 
 
   const {
     control,
+    setValue,
     watch,
     formState: { errors },
   } = useForm<FieldValues>({
@@ -53,9 +80,9 @@ const Filters = () => {
   }, [watchedValues]);
 
   return (
-    <div className='bg-[#FFF4DF] h-[216px] p-[40px] rounded-[30px] mb-[40px]'>
+    <div className='bg-[#FFF4DF] h-[216px] p-[40px] rounded-[30px] mb-[40px] w-[1216px] mx-auto my-0 " '>
       <form
-        className="box-border flex gap-[16px] border-r-[1px] border-secondaryGray pl-[24px] pr-[32px]"
+        className="box-border flex  border-r-[1px] border-secondaryGray items-center"
       >
         <Controller
           name="keyword"
@@ -68,31 +95,45 @@ const Filters = () => {
           )}
         />
               <Controller
-                  
           name="category"
           control={control}
           render={({ field }) => (
-            <Select
-              styles={selectStyles}
+            <SelectInput
               placeholder={'Category'}
               {...field}
               options={optionCategory}
-              value={optionCategory.find(option => option.value === field.value)}
-              onChange={(newValue: unknown,
-                _actionMeta: ActionMeta<unknown>) => {
-                if (
-                  typeof newValue === 'object' &&
-                  newValue !== null &&
-                  'value' in newValue
-                ) {
-                  field.onChange((newValue  as Option).value);
-                 
-     
-                } else {
-                  field.onChange('');
-                }
-              }}
-                 
+            />
+          )}
+        />
+         <Controller
+          name="sex"
+          control={control}
+          render={({ field }) => (
+            <SelectInput
+              placeholder={'By Gender'}
+              {...field}
+              options={optionGenders}
+            />
+          )}
+        />
+          <Controller
+          name="species"
+          control={control}
+          render={({ field }) => (
+            <SelectInput
+              placeholder={'By Type'}
+              {...field}
+              options={optionTypes}
+            />
+          )}
+        />
+         <Controller
+          name="locationId"
+          control={control}
+          render={({ field }) => (
+            <SearchInput
+              placeholder={'Location'}
+              {...field}
             />
           )}
         />

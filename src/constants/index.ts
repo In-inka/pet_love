@@ -8,4 +8,10 @@ export const constants = {
    category: {
     FETCH_CATEGORY: 'FETCH_CATEGORY',
   },
+   sex: {
+    FETCH_SEX: 'FETCH_SEX',
+  },
+    species: {
+    FETCH_SPECIES: 'FETCH_SPECIES',
+  }
 };

@@ -4,8 +4,8 @@ const schema = z.object({
 keyword: z.string(),
   locationId: z.string(),
   category: z.string(),
-  sex: z.string().array(),
-  species: z.string().array(),
+  sex: z.string(),
+  species: z.string(),
 });
 
 export default schema;

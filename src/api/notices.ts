@@ -22,3 +22,16 @@ export const getCategory = async () => {
   const { data } = await axios.get('/notices/categories');
   return data;
 };
+
+
+export const getSex = async () => {
+  const { data } = await axios.get('/notices/sex');
+  return data;
+};
+
+
+
+export const getSpecies = async () => {
+  const { data } = await axios.get('/notices/species');
+  return data;
+};
