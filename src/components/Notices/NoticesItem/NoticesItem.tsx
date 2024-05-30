@@ -1,5 +1,7 @@
 'use client';
 
+import FavoriteButton from '@/components/ui/FavoriteButton';
+import PrimaryButton from '@/components/ui/PrimaryButton';
 import { INews } from '@/types/news';
 import { INotices } from '@/types/notices';
 import Image from 'next/image';
@@ -24,14 +26,14 @@ const formattedDate = date.toLocaleDateString('uk-UA');
 
   return (
     <>
-      <div className="flex flex-col w-[363px] h-[444px] font-['Manrope',_sans-serif] bg-[#FFFFFF] p-[20px] rounded-[15px]">
+      <div className="flex flex-col w-[363px] h-[444px] font-['Manrope',_sans-serif] bg-[#FFFFFF] p-[20px] rounded-[16px]">
           <img
             src={item.imgURL}
             alt={item.title}
             width={315}
           height={178}
           
-            className="h-[178px] w-[315px] rounded-[15px] mb-6 object-cover"
+            className="h-[178px] w-[315px] rounded-[16px] mb-6 object-cover"
           />
           <p className="mb-[8px]">{item.title}</p>
           <div className='flex gap-[20px] mb-[16px]'>
@@ -61,10 +63,9 @@ const formattedDate = date.toLocaleDateString('uk-UA');
             >
               {item.comment}
             </p>
-          <div className="flex justify-between items-end">
-            <a href={''} className="text-[#f6b83d] text-[16px]">
-              Read more
-            </a>
+          <div className="flex gap-[10px]">
+          <PrimaryButton text='Learn more' />
+          <FavoriteButton/>
           </div>
       </div>
     </>

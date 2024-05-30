@@ -13,7 +13,7 @@ const FindPetsPage: React.FC = async () => {
   const queryClient = new QueryClient();
 
 await queryClient.prefetchQuery({
-  queryKey: [constants.notices.FETCH_NEWS],
+  queryKey: [constants.notices.FETCH_NOTICES],
   queryFn: () => getNotices({ currentPage: 1, perPage: 6 }),
  });
   

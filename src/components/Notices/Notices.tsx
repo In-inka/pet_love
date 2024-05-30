@@ -11,7 +11,6 @@ const Notices = () => {
       <section>
          <div className="flex justify-between items-center mb-[60px]">
           <Title title="Find your favorite pet" />
-          
         </div>
         <NoticesList/>
       </section>

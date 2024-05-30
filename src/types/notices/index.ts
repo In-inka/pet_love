@@ -23,3 +23,7 @@ export interface NoticesResponse {
   totalPages: number;
   results: INotices[];
 }
+
+export interface ICategory {
+data: [];
+}

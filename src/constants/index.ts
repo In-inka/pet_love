@@ -3,6 +3,9 @@ export const constants = {
     FETCH_NEWS: 'FETCH_NEWS',
   },
   notices: {
-    FETCH_NEWS: 'FETCH_NOTICES',
+    FETCH_NOTICES: 'FETCH_NOTICES',
+  },
+   category: {
+    FETCH_CATEGORY: 'FETCH_CATEGORY',
   },
 };

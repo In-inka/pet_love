@@ -16,3 +16,9 @@ export const getNotices = async ({ currentPage, perPage, keyword, category, spec
   });
   return data;
 };
+
+
+export const getCategory = async () => {
+  const { data } = await axios.get('/notices/categories');
+  return data;
+};

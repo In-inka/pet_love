@@ -7,6 +7,7 @@ import { getNotices } from '@/api/notices';
 import Pagination from '@/components/news/pagination/Pagination';
 import NoticesItem from '../NoticesItem/NoticesItem';
 import { INotices } from '@/types/notices';
+import Filters from '../Filter/Filter';
 
 
 const NoticesList = () => {
@@ -16,7 +17,7 @@ const NoticesList = () => {
  
 
  const { data, isLoading, isError, error } = useQuery({
-    queryKey: [constants.notices.FETCH_NEWS, currentPage, perPage],
+    queryKey: [constants.notices.FETCH_NOTICES, currentPage, perPage],
     queryFn: () => getNotices({
       currentPage: currentPage,
       perPage: perPage,
@@ -54,6 +55,7 @@ const NoticesList = () => {
 
   return (
     <div>
+      <Filters/>
      <ul className="flex gap-[30px] flex-wrap pb-[60px]">
         { dataNotices?.map((item: INotices) => (
           <li key={item._id}>
