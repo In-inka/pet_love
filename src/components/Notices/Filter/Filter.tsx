@@ -10,11 +10,14 @@ import { UseQueryResult, useQuery } from '@tanstack/react-query';
 import { constants } from '@/constants';
 import { getCategory, getSex, getSpecies } from '@/api/notices';
 import Select, { ActionMeta } from 'react-select';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { selectStyles } from '../../ui/selectStyles';
 import SelectInput from '@/components/ui/SelectInput';
 import SearchField from '@/components/ui/SearchField';
 import SearchInput from '@/components/ui/SearchInput';
+import { getCities } from '@/api/cities';
+import { Cities } from '@/types/cities';
+import SelectLocation from '@/components/ui/SelectLocation';
 
 export type Option = {
   value: string;
@@ -37,16 +40,24 @@ const Filters = () => {
     queryFn: getSpecies,
   });
 
+  const cities: UseQueryResult<[], Error> = useQuery({
+    queryKey: [constants.cities.FETCH_CITIES],
+    queryFn: getCities,
+  });
+
   const capitalizeWords = (str: string) => {
     return str.replace(/\b\w/g, char => char.toUpperCase());
   };
 
+
   const categories = category?.data || [];
   const genders = gender?.data || [];
   const types = type?.data || [];
+  const citiesType = cities?.data || [];
   const capitalizedCategories = categories.map(category => capitalizeWords(category));
   const capitalizedGenders = genders.map(item => capitalizeWords(item));
   const capitalizedTypes = types.map(item => capitalizeWords(item));
+  
 
   const optionCategory = [
     { label: 'Show All', value: 'show all' },
@@ -60,7 +71,35 @@ const Filters = () => {
    const optionTypes = [
     { label: 'Show All', value: 'show all' },
     ...capitalizedTypes.map(item => ({ label: item, value: item.toLowerCase() }))
-    ]; 
+  ]; 
+  
+
+
+    const [options, setOptions] = useState<Option[]>([]);
+  const [keyword, setKeyword] = useState('');
+
+
+
+
+  const filterData = (keyword: string, data: any[]) => {
+  const lowercasedKeyword = keyword.toLowerCase();
+    return data.filter(item =>
+    item.stateEn.toLowerCase().includes(lowercasedKeyword) ||
+    item.cityEn.toLowerCase().includes(lowercasedKeyword)
+  );
+  };
+  
+   // Виконання фільтрації при зміні ключового слова
+  useEffect(() => {
+    if (keyword) {
+      const filteredOptions = filterData(keyword, citiesType).map(item => ({
+        label: `${item.cityEn}, ${item.stateEn}`,
+        value: item._id,
+      }));
+      setOptions(filteredOptions);
+    }
+  }, [keyword]);
+
 
   const {
     control,
@@ -131,10 +170,12 @@ const Filters = () => {
           name="locationId"
           control={control}
           render={({ field }) => (
-            <SearchInput
-              placeholder={'Location'}
+           <SelectLocation
               {...field}
-            />
+          placeholder="Location"
+              options={options}
+               onKeywordChange={setKeyword} 
+        />
           )}
         />
           </form>

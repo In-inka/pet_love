@@ -13,5 +13,9 @@ export const constants = {
   },
     species: {
     FETCH_SPECIES: 'FETCH_SPECIES',
+    }
+    ,
+    cities: {
+    FETCH_CITIES: 'FETCH_CITIES',
   }
 };
