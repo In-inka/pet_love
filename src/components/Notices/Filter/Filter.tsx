@@ -8,32 +8,28 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import TextInput from '@/components/ui/TextInput';
 import { UseQueryResult, useQuery } from '@tanstack/react-query';
 import { constants } from '@/constants';
-import { getCategory, getSex, getSpecies } from '@/api/notices';
-import Select, { ActionMeta } from 'react-select';
+import { getCategory, getSpecies } from '@/api/notices';
 import { useEffect, useState } from 'react';
-import { selectStyles } from '../../ui/selectStyles';
 import SelectInput from '@/components/ui/SelectInput';
-import SearchField from '@/components/ui/SearchField';
-import SearchInput from '@/components/ui/SearchInput';
 import { getCities } from '@/api/cities';
-import { Cities } from '@/types/cities';
 import SelectLocation from '@/components/ui/SelectLocation';
+import Search from '@/components/main/icons/Search';
 
 export type Option = {
   value: string;
   label: string;
 };
 
-const Filters = () => {
+const Filters = ({
+  SubmitHandler,
+}: {
+  SubmitHandler: (data: FieldValues) => void;
+})=> {
   const category: UseQueryResult<[], Error> = useQuery({
     queryKey: [constants.category.FETCH_CATEGORY],
     queryFn: getCategory,
   });
 
-  const gender: UseQueryResult<[], Error> = useQuery({
-    queryKey: [constants.sex.FETCH_SEX],
-    queryFn: getSex,
-  });
 
     const type: UseQueryResult<[], Error> = useQuery({
     queryKey: [constants.species.FETCH_SPECIES],
@@ -51,60 +47,52 @@ const Filters = () => {
 
 
   const categories = category?.data || [];
-  const genders = gender?.data || [];
   const types = type?.data || [];
   const citiesType = cities?.data || [];
   const capitalizedCategories = categories.map(category => capitalizeWords(category));
-  const capitalizedGenders = genders.map(item => capitalizeWords(item));
   const capitalizedTypes = types.map(item => capitalizeWords(item));
-  
+
 
   const optionCategory = [
-    { label: 'Show All', value: 'show all' },
+    { label: 'Show All', value: '' },
     ...capitalizedCategories.map(category => ({ label: category, value: category.toLowerCase() }))
   ]; 
   
-  const optionGenders = [
-    { label: 'Show All', value: 'show all' },
-    ...capitalizedGenders.map(item => ({ label: item, value: item.toLowerCase() }))
-  ]; 
    const optionTypes = [
-    { label: 'Show All', value: 'show all' },
+    { label: 'Show All', value: '' },
     ...capitalizedTypes.map(item => ({ label: item, value: item.toLowerCase() }))
   ]; 
   
+const [options, setOptions] = useState<Option[]>([]);
+const [keyword, setKeyword] = useState('');
 
-
-    const [options, setOptions] = useState<Option[]>([]);
-  const [keyword, setKeyword] = useState('');
-
-
-
-
-  const filterData = (keyword: string, data: any[]) => {
-  const lowercasedKeyword = keyword.toLowerCase();
+const filterData = (keyword: string, data: any[]) => {
+  if (keyword) {
+    const lowercasedKeyword = keyword.toLowerCase();
     return data.filter(item =>
-    item.stateEn.toLowerCase().includes(lowercasedKeyword) ||
-    item.cityEn.toLowerCase().includes(lowercasedKeyword)
-  );
-  };
-  
-   // Виконання фільтрації при зміні ключового слова
-  useEffect(() => {
-    if (keyword) {
-      const filteredOptions = filterData(keyword, citiesType).map(item => ({
-        label: `${item.cityEn}, ${item.stateEn}`,
-        value: item._id,
-      }));
-      setOptions(filteredOptions);
-    }
-  }, [keyword]);
+      item.cityEn.toLowerCase().includes(lowercasedKeyword)
+    );
+  }
+  return [];
+};
+ 
+useEffect(() => {
+  if (keyword) {
+    const filteredOptions = filterData(keyword, citiesType)?.map(item => ({
+      label: `${item.cityEn}, ${item.stateEn}`,
+      value: item._id.toLowerCase(),
+    }));
+    setOptions(filteredOptions || []);
+  } else {
+    setOptions([]);
+  }
+}, [keyword]);
+
 
 
   const {
     control,
-    setValue,
-    watch,
+    handleSubmit,
     formState: { errors },
   } = useForm<FieldValues>({
     resolver: zodResolver(schema),
@@ -112,16 +100,21 @@ const Filters = () => {
     defaultValues: { ...defaultValues },
   });
 
- const watchedValues = watch();
 
-  useEffect(() => {
-    console.log(watchedValues);
-  }, [watchedValues]);
+   const onSubmit: SubmitHandler<FieldValues> = (
+    data,
+    event
+  ) => {
+    event?.preventDefault();
+     SubmitHandler(data);
+     console.log(data)
+  };
 
   return (
     <div className='bg-[#FFF4DF] h-[216px] p-[40px] rounded-[30px] mb-[40px] w-[1216px] mx-auto my-0 " '>
       <form
-        className="box-border flex  border-r-[1px] border-secondaryGray items-center"
+        className="box-border flex  flex-wrap border-r-[1px] border-secondaryGray items-center"
+        onSubmit={handleSubmit(onSubmit)}
       >
         <Controller
           name="keyword"
@@ -141,17 +134,6 @@ const Filters = () => {
               placeholder={'Category'}
               {...field}
               options={optionCategory}
-            />
-          )}
-        />
-         <Controller
-          name="sex"
-          control={control}
-          render={({ field }) => (
-            <SelectInput
-              placeholder={'By Gender'}
-              {...field}
-              options={optionGenders}
             />
           )}
         />
@@ -177,7 +159,43 @@ const Filters = () => {
                onKeywordChange={setKeyword} 
         />
           )}
+
+          
         />
+<Controller
+  name="popularity"
+  control={control}
+  render={({ field }) => (
+    <><label htmlFor="popularity">
+   <div
+      className={`w-[103px] h-[48px] bg-[#FFFFFF] rounded-[30px] flex justify-center items-center ${
+        field.value === true ? 'bg-yellow-500 text-white' : 'bg-white text-black'
+      }`}
+      onClick={() => field.onChange(true)}
+    >
+      Popularity
+    </div>
+    
+      </label>
+ <label htmlFor="unpopularity">
+ <div
+      className={`w-[103px] h-[48px] bg-[#FFFFFF] rounded-[30px] flex justify-center items-center ${
+        field.value === false ? 'bg-yellow-500 text-white' : 'bg-white text-black'
+      }`}
+      onClick={() => field.onChange(false)}
+    >
+      Unpopular
+    </div>
+     </label>
+    </>
+  )}
+/>
+        <div>
+          <button type='submit' className='w-[123px] h-[48px] bg-[#FFFFFF] rounded-[30px] flex gap-[2px] justify-center items-center'>
+            <p>Застосувати</p>
+              <Search className='stroke-black fill-none w-[18px] h-[18px]'/>
+          </button>
+        </div>
           </form>
     </div>
   );

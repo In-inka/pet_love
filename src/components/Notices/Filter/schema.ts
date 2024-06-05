@@ -6,6 +6,7 @@ keyword: z.string(),
   category: z.string(),
   sex: z.string(),
   species: z.string(),
+  popularity:z.boolean()
 });
 
 export default schema;

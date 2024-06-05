@@ -32,7 +32,6 @@ const SelectLocation = forwardRef(function SelectLocation(
   _ref: ForwardedRef<HTMLInputElement>
 ) {
 
-  console.log("Value in SelectLocation:", value);
 
   const [isOpen, setIsOpen] = useState(false);
 

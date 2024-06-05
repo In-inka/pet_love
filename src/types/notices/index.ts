@@ -13,7 +13,7 @@ export interface INotices {
       imgURL: string;
       createdAt: string;
       user:string;
-      popularity: number,
+      popularity: boolean,
       updatedAt: string;
 }
 
@@ -26,4 +26,12 @@ export interface NoticesResponse {
 
 export interface ICategory {
 data: [];
+}
+
+export interface Notices {
+  species: string;
+      category: string;
+      keyword: string;
+  locationId: string;
+  popularity: boolean,
 }

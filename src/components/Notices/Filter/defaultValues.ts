@@ -4,6 +4,7 @@ const defaultValues = {
   sex: '',
   species: '',
   locationId: '',
+  popularity:true,
 };
 
 export default defaultValues;
