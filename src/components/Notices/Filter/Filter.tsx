@@ -14,6 +14,7 @@ import SelectInput from '@/components/ui/SelectInput';
 import { getCities } from '@/api/cities';
 import SelectLocation from '@/components/ui/SelectLocation';
 import Search from '@/components/main/icons/Search';
+import Close from '@/components/main/icons/Close';
 
 export type Option = {
   value: string;
@@ -111,12 +112,13 @@ useEffect(() => {
   };
 
   return (
-    <div className='bg-[#FFF4DF] h-[216px] p-[40px] rounded-[30px] mb-[40px] w-[1216px] mx-auto my-0 " '>
+    <div className='bg-[#FFF4DF] h-[216px] p-[40px] rounded-[30px] mb-[40px] w-[1216px] mx-auto my-0 text-[16px] '>
       <form
-        className="box-border flex  flex-wrap border-r-[1px] border-secondaryGray items-center"
+        className="box-border"
         onSubmit={handleSubmit(onSubmit)}
       >
-        <Controller
+        <div className='flex items-center border-b border-[rgba(38, 38, 38, 0.1)] pb-[20px] mb-[20px]'>
+           <Controller
           name="keyword"
           control={control}
           render={({ field }) => (
@@ -138,7 +140,8 @@ useEffect(() => {
           )}
         />
           <Controller
-          name="species"
+            name="species"
+            
           control={control}
           render={({ field }) => (
             <SelectInput
@@ -161,41 +164,106 @@ useEffect(() => {
           )}
 
           
-        />
-<Controller
-  name="popularity"
-  control={control}
-  render={({ field }) => (
-    <><label htmlFor="popularity">
-   <div
-      className={`w-[103px] h-[48px] bg-[#FFFFFF] rounded-[30px] flex justify-center items-center ${
-        field.value === true ? 'bg-yellow-500 text-white' : 'bg-white text-black'
-      }`}
-      onClick={() => field.onChange(true)}
-    >
-      Popularity
-    </div>
-    
-      </label>
- <label htmlFor="unpopularity">
- <div
-      className={`w-[103px] h-[48px] bg-[#FFFFFF] rounded-[30px] flex justify-center items-center ${
-        field.value === false ? 'bg-yellow-500 text-white' : 'bg-white text-black'
-      }`}
-      onClick={() => field.onChange(false)}
-    >
-      Unpopular
-    </div>
-     </label>
-    </>
-  )}
-/>
-        <div>
-          <button type='submit' className='w-[123px] h-[48px] bg-[#FFFFFF] rounded-[30px] flex gap-[2px] justify-center items-center'>
+          />
+            <button type='submit' className='w-[265px] h-[48px] bg-[#F6B83D] text-white rounded-[30px] flex gap-2 justify-center items-center'>
             <p>Застосувати</p>
-              <Search className='stroke-black fill-none w-[18px] h-[18px]'/>
+              <Search className='stroke-white fill-none w-[18px] h-[18px]'/>
           </button>
+       </div>
+        <div className='flex gap-2'>
+           <Controller
+      control={control}
+            name={'popularity'}
+            defaultValue={null}
+      render={({ field: { onChange, onBlur, value, ref } }) => (
+        <div className='flex gap-2'>
+          <label>
+            <div
+              className={`w-[109px] h-[48px] bg-[#FFFFFF] text-[16px] rounded-[30px] flex justify-center gap-[8px] items-center`}
+               style={{
+        backgroundColor: value === true ? '#F6B83D' : '#FFFFFF',
+        color: value === true ? '#FFFFFF' : '#000000',
+      }}
+    ><p>Popular</p> {value === true && <Close className='fill-none stroke-white w-[18px] h-[18px]'/>}
+            <input
+              type="radio"
+              onBlur={onBlur}
+              onChange={() => onChange(true)} 
+              checked={value === true}
+                id='true'
+                className='hidden'
+              />
+              </div>
+          </label>
+          <label>
+             <div
+              className={`w-[109px] h-[48px] bg-[#FFFFFF] text-[16px] rounded-[30px] gap-[8px] flex justify-center items-center`}
+               style={{
+        backgroundColor: value === false ? '#F6B83D' : '#FFFFFF',
+        color: value === false ? '#FFFFFF' : '#000000',
+      }}
+            >
+              <p>Unpopular</p> {value === false && <Close className='fill-none stroke-white w-[18px] h-[18px]'/>}
+            <input
+              type="radio"
+              onBlur={onBlur} 
+              onChange={() => onChange(false)} 
+              checked={value === false}
+                id='false'
+                className='hidden'
+              />
+              </div>
+          </label>
         </div>
+      )}
+          />
+                     <Controller
+            control={control}
+              defaultValue={null}
+      name={'price'}
+      render={({ field: { onChange, onBlur, value, ref } }) => (
+        <div className='flex gap-2'>
+          <label>
+            <div
+              className={`w-[109px] h-[48px] bg-[#FFFFFF] text-[16px] rounded-[30px] flex justify-center gap-[8px] items-center`}
+               style={{
+        backgroundColor: value === true ? '#F6B83D' : '#FFFFFF',
+        color: value === true ? '#FFFFFF' : '#000000',
+      }}
+    ><p>Cheap</p> {value === true && <Close className='fill-none stroke-white w-[18px] h-[18px]'/>}
+            <input
+              type="radio"
+              onBlur={onBlur}
+              onChange={() => onChange(true)} 
+              checked={value === true}
+                id='true'
+                className='hidden'
+              />
+              </div>
+          </label>
+          <label>
+             <div
+              className={`w-[109px] h-[48px] bg-[#FFFFFF] text-[16px] rounded-[30px] gap-[8px] flex justify-center items-center`}
+               style={{
+        backgroundColor: value === false ? '#F6B83D' : '#FFFFFF',
+        color: value === false ? '#FFFFFF' : '#000000',
+      }}
+            >
+              <p>Expensive</p> {value === false && <Close className='fill-none stroke-white w-[18px] h-[18px]'/>}
+            <input
+              type="radio"
+              onBlur={onBlur} 
+              onChange={() => onChange(false)} 
+              checked={value === false}
+                id='false'
+                className='hidden'
+              />
+              </div>
+          </label>
+        </div>
+      )}
+          />
+      </div>
           </form>
     </div>
   );

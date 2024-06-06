@@ -60,10 +60,11 @@ const SelectInput = forwardRef(function SelectInput(
     <div className="relative m-2 w-[190px]">
       <Select
         id={placeholder}
+        defaultInputValue={''}
               styles={selectStyles}
               placeholder={placeholder}
               options={options}
-             value={options.find((c) => c.value === value)}
+             value={options.find((c) => c.value === value) || null}
         onChange={handleChange}
         onMenuOpen={handleMenuOpen}
         onMenuClose={handleMenuClose}

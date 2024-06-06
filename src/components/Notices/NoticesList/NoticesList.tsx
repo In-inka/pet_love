@@ -28,6 +28,7 @@ const { data, isLoading, isError, error } = useQuery({
     currentPage: currentPage,
     byPopularity:filter?.popularity,
     perPage: perPage,
+    byPrice:filter?.price
   }),
 });
   

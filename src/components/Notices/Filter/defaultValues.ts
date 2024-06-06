@@ -1,10 +1,10 @@
 const defaultValues = {
   keyword:'',
-  category: '',
-  sex: '',
-  species: '',
+  category: null,
+  species: null,
   locationId: '',
-  popularity:true,
+  popularity: null,
+  price: null,
 };
 
 export default defaultValues;
