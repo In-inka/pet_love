@@ -106,7 +106,13 @@ useEffect(() => {
     data,
     event
   ) => {
-    event?.preventDefault();
+     event?.preventDefault();
+     defaultValues.keyword = data?.keyword;
+     defaultValues.category = data?.category;
+     defaultValues.species = data?.species;
+     defaultValues.locationId = data?.locationId;
+     defaultValues.popularity = data?.popularity;
+     defaultValues.price = data?.price;
      SubmitHandler(data);
      console.log(data)
   };
@@ -179,12 +185,12 @@ useEffect(() => {
         <div className='flex gap-2'>
           <label>
             <div
-              className={`w-[109px] h-[48px] bg-[#FFFFFF] text-[16px] rounded-[30px] flex justify-center gap-[8px] items-center`}
+              className={`w-[109px] h-[48px] bg-[#FFFFFF] text-[16px] rounded-[30px] flex justify-center gap-[8px] items-center relative`}
                style={{
         backgroundColor: value === true ? '#F6B83D' : '#FFFFFF',
         color: value === true ? '#FFFFFF' : '#000000',
       }}
-    ><p>Popular</p> {value === true && <Close className='fill-none stroke-white w-[18px] h-[18px]'/>}
+    ><p>Popular</p> {value === true && <button onClick={()=>onChange(null)}  ><Close className='fill-none stroke-white w-[18px] h-[18px]' /></button>}
             <input
               type="radio"
               onBlur={onBlur}
@@ -203,7 +209,7 @@ useEffect(() => {
         color: value === false ? '#FFFFFF' : '#000000',
       }}
             >
-              <p>Unpopular</p> {value === false && <Close className='fill-none stroke-white w-[18px] h-[18px]'/>}
+              <p>Unpopular</p> {value === false && <button onClick={()=>onChange(null)}  ><Close className='fill-none stroke-white w-[18px] h-[18px]' /></button>}
             <input
               type="radio"
               onBlur={onBlur} 
@@ -230,7 +236,7 @@ useEffect(() => {
         backgroundColor: value === true ? '#F6B83D' : '#FFFFFF',
         color: value === true ? '#FFFFFF' : '#000000',
       }}
-    ><p>Cheap</p> {value === true && <Close className='fill-none stroke-white w-[18px] h-[18px]'/>}
+    ><p>Cheap</p> {value === true && <button onClick={()=>onChange(null)}  ><Close className='fill-none stroke-white w-[18px] h-[18px]' /></button>}
             <input
               type="radio"
               onBlur={onBlur}
@@ -249,7 +255,7 @@ useEffect(() => {
         color: value === false ? '#FFFFFF' : '#000000',
       }}
             >
-              <p>Expensive</p> {value === false && <Close className='fill-none stroke-white w-[18px] h-[18px]'/>}
+              <p>Expensive</p> {value === false && <button onClick={()=>onChange(null)} ><Close className='fill-none stroke-white w-[18px] h-[18px]' /></button>}
             <input
               type="radio"
               onBlur={onBlur} 

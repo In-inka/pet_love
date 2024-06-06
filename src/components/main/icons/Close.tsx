@@ -6,7 +6,7 @@ interface CloseProps {
 
 const Close: React.FC<CloseProps> = ({ className, ...rest }) => {
   return (
-    <div {...rest}>
+    <span {...rest}>
       <svg
         className={className}
         xmlns="http://www.w3.org/2000/svg"
@@ -16,7 +16,7 @@ const Close: React.FC<CloseProps> = ({ className, ...rest }) => {
       >
         <path strokeLinejoin="round" strokeLinecap="round" strokeMiterlimit="4" strokeWidth="3.5556" d="M24 8l-16 16M8 8l16 16"></path>
         </svg>
-    </div>
+    </span>
   );
 };
 
